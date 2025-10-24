@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="2000" height="2000" viewBox="0 0 2000 2000"
+     preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <!-- Background gradient -->
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#071a36"/>
+      <stop offset="1" stop-color="#0b2b4c"/>
+    </linearGradient>
+
+    <!-- Ribbon gradient: magenta -> purple -> cyan -->
+    <linearGradient id="ribbonGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ff2fa6"/>
+      <stop offset="0.45" stop-color="#8b33d6"/>
+      <stop offset="1" stop-color="#15d4e6"/>
+    </linearGradient>
+
+    <!-- Subtle glow filter for nodes -->
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="8" result="b"/>
+      <feMerge>
+        <feMergeNode in="b"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Thin smoothing for network lines -->
+    <filter id="soft" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="0.8" result="s"/>
+      <feMerge>
+        <feMergeNode in="s"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- A subtle dot shape for repeated use -->
+    <circle id="dot" r="6" fill="#fff" />
+
+    <!-- A pattern of faint horizontal lines to add texture (very subtle) -->
+    <pattern id="linesPattern" patternUnits="userSpaceOnUse" width="200" height="200">
+      <path d="M0 0h200" stroke="#06283c" stroke-opacity="0.03" stroke-width="2"/>
+    </pattern>
+
+    <!-- Create a clipping shape so ribbon doesn't extend awkwardly -->
+    <clipPath id="mainClip">
+      <rect x="0" y="0" width="2000" height="2000" rx="8" ry="8"/>
+    </clipPath>
+
+  </defs>
+
+  <!-- BACKGROUND -->
+  <rect width="100%" height="100%" fill="url(#bgGrad)" clip-path="url(#mainClip)"/>
+  <rect width="100%" height="100%" fill="url(#linesPattern)" opacity="0.22" clip-path="url(#mainClip)"/>
+
+  <!-- Subtle vignette (darker corners) -->
+  <radialGradient id="vign" cx="50%" cy="50%" r="80%">
+    <stop offset="0" stop-color="#000000" stop-opacity="0"/>
+    <stop offset="1" stop-color="#000000" stop-opacity="0.20"/>
+  </radialGradient>
+  <rect width="100%" height="100%" fill="url(#vign)" />
+
+  <!-- RIBBON: multiple stroked curves to form mesh lines -->
+  <g id="ribbon" stroke-linecap="round" stroke-linejoin="round" fill="none" clip-path="url(#mainClip)">
+    <!-- Large soft colored ribbon path (subtle wide stroke for base) -->
+    <path d="M1450 190 C1650 420, 1350 700, 1600 920 C1830 1110, 1400 1370, 1500 1600
+             C1600 1830, 1200 1870, 900 1650 C700 1500, 750 1250, 900 1100
+             C1100 900, 1200 600, 1450 190 Z"
+          fill="url(#ribbonGrad)" opacity="0.06" />
+
+    <!-- Many thin lines that follow smooth offsets to simulate mesh/waves -->
+    <!-- We'll create groups of repeated paths with slight vertical offsets to simulate the wireframe -->
+    <!-- group 1: magenta-to-purple lines (top) -->
+    <g stroke="url(#ribbonGrad)" stroke-opacity="0.9" stroke-width="2" filter="url(#soft)">
+      <path d="M1500 200 C1640 430, 1380 670, 1600 900" />
+      <path d="M1460 240 C1600 470, 1340 710, 1560 940" opacity="0.92"/>
+      <path d="M1420 280 C1560 510, 1300 750, 1520 980" opacity="0.86"/>
+      <path d="M1380 320 C1520 550, 1260 790, 1480 1020" opacity="0.8"/>
+    </g>
+
+    <!-- group 2: purple-to-cyan finer mesh lines (middle-right) -->
+    <g stroke="url(#ribbonGrad)" stroke-opacity="0.78" stroke-width="1.2" filter="url(#soft)">
+      <path d="M1520 900 C1460 1020, 1340 1180, 1200 1400" />
+      <path d="M1560 940 C1500 1060, 1380 1220, 1240 1440" opacity="0.92"/>
+      <path d="M1600 980 C1540 1100, 1420 1260, 1280 1480" opacity="0.8"/>
+      <path d="M1640 1020 C1580 1140, 1460 1300, 1320 1520" opacity="0.64"/>
+    </g>
+
+    <!-- group 3: cyan lower waves -->
+    <g stroke="#15d4e6" stroke-opacity="0.9" stroke-width="1.6" filter="url(#soft)">
+      <path d="M1280 1480 C1200 1560, 1100 1620, 900 1690" />
+      <path d="M1320 1520 C1240 1600, 1140 1660, 940 1730" opacity="0.82"/>
+      <path d="M1360 1560 C1280 1640, 1180 1700, 980 1770" opacity="0.7"/>
+    </g>
+
+    <!-- Add very thin many-parallel-lines to emulate mesh density -->
+    <g stroke="url(#ribbonGrad)" stroke-opacity="0.28" stroke-width="0.6">
+      <!-- use a loop-like repetition by explicitly listing several paths -->
+      <path d="M1500 220 C1550 300, 1420 480, 1460 680" />
+      <path d="M1520 240 C1570 320, 1440 500, 1480 700" />
+      <path d="M1540 260 C1590 340, 1460 520, 1500 720" />
+      <path d="M1560 280 C1610 360, 1480 540, 1520 740" />
+      <path d="M1580 300 C1630 380, 1500 560, 1540 760" />
+      <path d="M1600 320 C1650 400, 1520 580, 1560 780" />
+    </g>
+  </g>
+
+  <!-- NETWORK: nodes + connecting lines on lower-left -->
+  <g id="network" stroke="#12b4e0" stroke-opacity="0.9" stroke-width="1" fill="none" filter="url(#soft)" clip-path="url(#mainClip)">
+    <!-- connecting geometry (thin, web-like) -->
+    <path d="M220 1400 L320 1320 L420 1400 L520 1260 L600 1320 L700 1250"
+          stroke-opacity="0.35" />
+    <path d="M280 1520 L360 1430 L480 1480 L560 1370 L700 1420" stroke-opacity="0.24" />
+    <path d="M120 1520 L200 1450 L280 1520 L420 1580 L520 1500" stroke-opacity="0.18" />
+    <path d="M420 1400 L480 1500 L580 1530 L680 1480" stroke-opacity="0.12" />
+
+    <!-- many small connecting lines -->
+    <line x1="240" y1="1460" x2="310" y2="1380" stroke-opacity="0.22"/>
+    <line x1="320" y1="1320" x2="410" y2="1400" stroke-opacity="0.22"/>
+    <line x1="420" y1="1400" x2="520" y2="1260" stroke-opacity="0.22"/>
+    <line x1="520" y1="1260" x2="600" y2="1320" stroke-opacity="0.22"/>
+    <line x1="600" y1="1320" x2="700" y2="1250" stroke-opacity="0.22"/>
+
+    <!-- nodes (glowing) -->
+    <g id="nodes" filter="url(#glow)">
+      <circle cx="220" cy="1520" r="6" fill="#12b4e0" opacity="0.95"/>
+      <circle cx="320" cy="1320" r="9" fill="#12b4e0" opacity="0.98"/>
+      <circle cx="420" cy="1400" r="7" fill="#12b4e0" opacity="0.95"/>
+      <circle cx="520" cy="1260" r="6" fill="#12b4e0" opacity="0.9"/>
+      <circle cx="700" cy="1250" r="5" fill="#12b4e0" opacity="0.9"/>
+      <circle cx="600" cy="1320" r="5.5" fill="#12b4e0" opacity="0.9"/>
+      <circle cx="480" cy="1480" r="5" fill="#12b4e0" opacity="0.7"/>
+      <circle cx="280" cy="1520" r="4.5" fill="#12b4e0" opacity="0.6"/>
+    </g>
+  </g>
+
+  <!-- scattered magenta-ish nodes on ribbon (upper-right) -->
+  <g id="magNodes" filter="url(#glow)" fill="#ff2fa6" opacity="0.95" clip-path="url(#mainClip)">
+    <circle cx="1580" cy="220" r="5"/>
+    <circle cx="1490" cy="300" r="6.5" opacity="0.95"/>
+    <circle cx="1460" cy="390" r="4.5" opacity="0.85"/>
+    <circle cx="1520" cy="740" r="4" opacity="0.7"/>
+    <circle cx="1420" cy="980" r="3.4" opacity="0.6"/>
+    <circle cx="1500" cy="1080" r="3.6" opacity="0.55"/>
+    <circle cx="1360" cy="1260" r="3.2" opacity="0.45"/>
+  </g>
+
+  <!-- tiny speckle particles to add depth -->
+  <g opacity="0.28" fill="#a96aff">
+    <circle cx="1520" cy="830" r="2"/>
+    <circle cx="1380" cy="1060" r="1.6"/>
+    <circle cx="1260" cy="1400" r="1.2"/>
+    <circle cx="1480" cy="980" r="1.8"/>
+    <circle cx="940" cy="1700" r="2.2" fill="#12b4e0"/>
+    <circle cx="580" cy="1560" r="1.3" fill="#12b4e0"/>
+  </g>
+
+  <!-- subtle overlay diagonal faint mesh for visual interest -->
+  <g stroke="#0f3b57" stroke-opacity="0.06" stroke-width="1">
+    <path d="M0 200 L2000 0"/>
+    <path d="M0 400 L2000 200"/>
+    <path d="M0 600 L2000 400"/>
+    <path d="M0 800 L2000 600"/>
+    <path d="M0 1000 L2000 800"/>
+    <path d="M0 1200 L2000 1000"/>
+    <path d="M0 1400 L2000 1200"/>
+    <path d="M0 1600 L2000 1400"/>
+  </g>
+
+  <!-- final soft vignette highlight near upper-right to emphasize ribbon -->
+  <radialGradient id="highlight" cx="0.78" cy="0.16" r="0.48">
+    <stop offset="0" stop-color="#ffffff" stop-opacity="0.06"/>
+    <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+  </radialGradient>
+  <ellipse cx="1500" cy="400" rx="560" ry="420" fill="url(#highlight)" opacity="0.6"/>
+
+  <!-- Optional: small corner radius stroke for polish -->
+  <rect x="8" y="8" width="1984" height="1984" rx="6" ry="6" fill="none" stroke="#071a36" stroke-opacity="0.14"/>
+
+</svg>
