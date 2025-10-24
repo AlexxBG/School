@@ -1,5 +1,167 @@
 h1 {
+  text-align: center; /* Center the text */
+  font-size: 48px; /* Increase the font size */
+  font-family: 'Arial', sans-serif; /* Change the font */
+  color: white;
+  font-weight: bold;
+}
+ 
+body {
+  background-image: url("images/abstract_network.svg");
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  color: white;
+}
 
-    color: pink;
-    font-weight: bold;
+.bar-chart {
+  width: 100%;
+  max-width: 600px;
+  margin: 20px auto;
+}
+
+/* -------------------------------------
+   BAR / ROW / LABEL
+   ------------------------------------- */
+.bar {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 100%;
+  box-sizing: border-box;
+  cursor: default;
+  position: relative;
+  margin-bottom: 5px; /* normal spacing */
+
+  /* default chart-shift transition */
+  transition: margin-bottom 0.45s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* When opening (hover), we want the margin change to feel snappy */
+.bar:hover {
+  margin-bottom: 10px;
+}
+
+/* slow-close class: used by JS to make the upward motion slower */
+.bar.slow-close {
+  transition: margin-bottom 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.bar-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+}
+
+.bar-label {
+  flex-shrink: 0;
+  width: 150px;
+  text-align: left;
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  font-weight: bold;
+  color: #ffffff;
+  box-sizing: border-box;
+}
+
+/* -------------------------------------
+   STAR FILL
+   ------------------------------------- */
+.bar-fill {
+  position: relative;
+  height: 50px;               /* size of stars */
+  width: 100%;                /* full bar width */
+  overflow: hidden;
+  font-size: 48px;            /* star size */
+  line-height: 50px;
+  color: gold;                /* star color */
+  text-align: left;
+}
+
+/* Gold stars, width controlled by percentage */
+.bar-fill::after {
+  content: "★★★★★";
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: space-between;
+  letter-spacing: 10px;       /* adjust spacing to taste */
+  width: var(--fill-percentage, 0%);
+  overflow: hidden;           /* masks stars beyond percentage */
+  color: gold;
+  transition: width 0.5s ease-in-out;
+}
+
+/* -------------------------------------
+   POPUP (open/close visual)
+   ------------------------------------- */
+
+/* Hidden state: positioned absolutely (doesn't reserve space),
+   scaled to 0 and transparent. Closing timing here is intentionally slower. */
+.popup {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+
+  transform-origin: top;
+  transform: scaleY(0);
+  opacity: 0;
+  padding: 0 10px;
+
+  width: 100%;
+  background-color: rgba(87,148,71,0.5);
+  color: white;
+  border-radius: 5px;
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  text-align: left;
+  z-index: 10;
+
+  /* closing: fade quickly, then shrink slower (no snap) */
+  transition:
+    opacity 0.28s ease-out,
+    transform 0.9s cubic-bezier(0.33, 1, 0.68, 1) 0.12s,
+    padding 0.9s cubic-bezier(0.33, 1, 0.68, 1) 0.08s;
+}
+
+/* Opened state: re-enters flow (position:relative) to push items down
+   and opens quickly for responsiveness. */
+.bar:hover .popup {
+  position: relative;
+  transform: scaleY(1);
+  opacity: 1;
+  padding: 10px;
+
+  transition:
+    opacity 0.18s ease-in,
+    transform 0.42s cubic-bezier(0.25, 1, 0.5, 1),
+    padding 0.42s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* -------------------------------------
+   Popup content styles
+   ------------------------------------- */
+.popup-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.popup-label {
+  color: white;
+  font-size: 14px;
+  white-space: pre-line; /* preserve newlines if you want */
+}
+
+.popup-stars {
+  color: yellow;
+  font-size: 18px;
 }
