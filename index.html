@@ -30,6 +30,7 @@
     .content-wrapper {
       max-width: 800px;
       margin: 0 auto;
+       
     }
 
     .about-section {
@@ -160,6 +161,126 @@
       font-size: 18px;
       white-space: nowrap;
     }
+
+    .carousel-section {
+      margin-top: 80px;
+      padding: 40px 20px;
+    }
+
+    .carousel-section h2 {
+      font-size: 36px;
+      margin-bottom: 50px;
+      text-align: center;
+      color: white;
+    }
+
+    .carousel-container {
+      position: relative;
+      height: 500px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .carousel-images {
+      position: relative;
+      width: 600px;
+      height: 400px;
+    }
+
+    .carousel-item {
+      position: absolute;
+      width: 500px;
+      height: 350px;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      color: #333;
+      font-weight: bold;
+    }
+
+    .carousel-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .carousel-item.active {
+      z-index: 10;
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+      left: 50%;
+      top: 50%;
+    }
+
+    .carousel-item.left {
+      z-index: 5;
+      transform: translate(-180%, -50%) scale(0.7) rotateY(25deg);
+      opacity: 0.6;
+      left: 50%;
+      top: 50%;
+    }
+
+    .carousel-item.right {
+      z-index: 5;
+      transform: translate(80%, -50%) scale(0.7) rotateY(-25deg);
+      opacity: 0.6;
+      left: 50%;
+      top: 50%;
+    }
+
+    .carousel-item.hidden-left {
+      z-index: 1;
+      transform: translate(-250%, -50%) scale(0.5) rotateY(45deg);
+      opacity: 0.3;
+      left: 50%;
+      top: 50%;
+    }
+
+    .carousel-item.hidden-right {
+      z-index: 1;
+      transform: translate(150%, -50%) scale(0.5) rotateY(-45deg);
+      opacity: 0.3;
+      left: 50%;
+      top: 50%;
+    }
+
+    .carousel-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 20;
+      transition: all 0.3s ease;
+      font-size: 40px;
+      color: white;
+      user-select: none;
+      font-weight: 100;
+    }
+
+    .carousel-arrow:hover {
+      transform: translateY(-50%) scale(1.2);
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .carousel-arrow.left {
+      left: 20px;
+    }
+
+    .carousel-arrow.right {
+      right: 20px;
+    }
   </style>
 </head>
 <body>
@@ -222,6 +343,31 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+
+    <div class="carousel-section">
+      <h2>My Work</h2>
+      <div class="carousel-container">
+        <div class="carousel-arrow left" onclick="previousSlide()"><</div>
+        <div class="carousel-images">
+          <div class="carousel-item active">
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: white;">Project 1</div>
+          </div>
+          <div class="carousel-item right">
+            <div style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: white;">Project 2</div>
+          </div>
+          <div class="carousel-item hidden-right">
+            <div style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: white;">Project 3</div>
+          </div>
+          <div class="carousel-item hidden-right">
+            <div style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: white;">Project 4</div>
+          </div>
+          <div class="carousel-item hidden-left">
+            <div style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: white;">Project 5</div>
+          </div>
+        </div>
+        <div class="carousel-arrow right" onclick="nextSlide()">></div>
       </div>
     </div>
   </div>
@@ -308,6 +454,42 @@
         bar._closeTimer = barCloseTimer;
       });
     });
+
+    // Carousel functionality
+    let currentIndex = 0;
+    const carouselItems = document.querySelectorAll('.carousel-item');
+    const totalItems = carouselItems.length;
+
+    function updateCarousel() {
+      carouselItems.forEach((item, index) => {
+        item.classList.remove('active', 'left', 'right', 'hidden-left', 'hidden-right');
+        
+        if (index === currentIndex) {
+          item.classList.add('active');
+        } else if (index === (currentIndex - 1 + totalItems) % totalItems) {
+          item.classList.add('left');
+        } else if (index === (currentIndex + 1) % totalItems) {
+          item.classList.add('right');
+        } else if (index === (currentIndex - 2 + totalItems) % totalItems) {
+          item.classList.add('hidden-left');
+        } else {
+          item.classList.add('hidden-right');
+        }
+      });
+    }
+
+    function nextSlide() {
+      currentIndex = (currentIndex + 1) % totalItems;
+      updateCarousel();
+    }
+
+    function previousSlide() {
+      currentIndex = (currentIndex - 1 + totalItems) % totalItems;
+      updateCarousel();
+    }
+
+    // Initialize carousel
+    updateCarousel();
   </script>
 </body>
 </html>
