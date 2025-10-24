@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio Alexandar Ivanov</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 48px;
+      font-family: 'Arial', sans-serif;
+      color: white;
+      font-weight: bold;
+      margin-bottom: 40px;
+    }
+    
+    body {
+      background-image: url("images/abstract_network.svg");
+      min-height: 100vh;
+      color: white;
+      padding: 40px 20px;
+    }
+
+    .content-wrapper {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .about-section {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 40px;
+      border-radius: 10px;
+      margin-bottom: 60px;
+      text-align: center;
+    }
+
+    .about-section h2 {
+      font-size: 36px;
+      margin-bottom: 20px;
+      color: white;
+    }
+
+    .about-section p {
+      font-size: 18px;
+      line-height: 1.8;
+      color: white;
+      margin-bottom: 15px;
+    }
+
+    .skills-section h2 {
+      font-size: 36px;
+      margin-bottom: 30px;
+      text-align: center;
+      color: white;
+    }
+
+    .bar-chart {
+      width: 100%;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .bar {
+      width: 100%;
+      margin-bottom: 15px;
+      cursor: pointer;
+    }
+
+    .bar.space-open {
+      margin-bottom: 25px;
+      transition: margin-bottom 0.4s ease-in-out;
+    }
+
+    .bar.space-closing {
+      margin-bottom: 15px;
+      transition: margin-bottom 0s linear;
+    }
+
+    .bar-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 5px;
+    }
+
+    .bar-label {
+      flex-shrink: 0;
+      width: 150px;
+      text-align: left;
+      font-size: 16px;
+      font-weight: bold;
+      color: #ffffff;
+    }
+
+    .bar-fill {
+      position: relative;
+      height: 50px;
+      flex-grow: 1;
+      overflow: hidden;
+      font-size: 48px;
+      line-height: 50px;
+      color: gold;
+      text-align: left;
+    }
+
+    .bar-fill::after {
+      content: attr(data-stars);
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: flex;
+      justify-content: flex-start;
+      letter-spacing: 10px;
+      color: gold;
+      transition: content 0.3s ease-in-out;
+    }
+
+    .popup {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      background-color: rgba(87, 148, 71, 0.7);
+      border-radius: 5px;
+      padding: 0 10px;
+      transition: max-height 0.25s ease-out, 
+                  opacity 0.2s ease-out,
+                  padding 0.25s ease-out;
+    }
+
+    .bar.popup-open .popup {
+      max-height: 200px;
+      opacity: 1;
+      padding: 10px;
+      transition: max-height 0.4s ease-in-out, 
+                  opacity 0.4s ease-in-out,
+                  padding 0.4s ease-in-out;
+    }
+
+    .popup-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 5px 0;
+    }
+
+    .popup-label {
+      color: white;
+      font-size: 14px;
+    }
+
+    .popup-stars {
+      color: yellow;
+      font-size: 18px;
+      white-space: nowrap;
+    }
+  </style>
+</head>
+<body>
+  <div class="content-wrapper">
+    <h1>PORTFOLIO</h1>
+
+    <div class="about-section">
+      <h2>About Me</h2>
+      <p>Hello! I'm Alexandar Ivanov, a passionate developer and designer.</p>
+      <p>I love creating beautiful and functional digital experiences.</p>
+      <p>Feel free to add more information about yourself here!</p>
+    </div>
+
+    <div class="skills-section">
+      <h2>My Skills</h2>
+      <div class="bar-chart">
+        <div class="bar" data-bar="1">
+          <div class="bar-row">
+            <div class="bar-label">Adobe CC</div>
+            <div class="bar-fill" style="--fill-percentage:50%;"></div>
+          </div>
+          <div class="popup">
+            <div class="popup-row">
+              <span class="popup-label">Adobe Creative Cloud</span>
+              <span class="popup-stars">60%</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bar" data-bar="2">
+          <div class="bar-row">
+            <div class="bar-label">Ms Office</div>
+            <div class="bar-fill" style="--fill-percentage:40%;"></div>
+          </div>
+          <div class="popup">
+            <div class="popup-row">
+              <span class="popup-label">Microsoft Office</span>
+              <span class="popup-stars">40%</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bar" data-bar="3">
+          <div class="bar-row">
+            <div class="bar-label">Programming</div>
+            <div class="bar-fill" style="--fill-percentage:80%;"></div>
+          </div>
+          <div class="popup">
+            <div class="popup-row">
+              <span class="popup-label">HTML + CSS</span>
+              <span class="popup-stars">90%</span>
+            </div>
+            <div class="popup-row">
+              <span class="popup-label">Python</span>
+              <span class="popup-stars">10%</span>
+            </div>
+            <div class="popup-row">
+              <span class="popup-label">C#</span>
+              <span class="popup-stars">70%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Function to calculate stars based on percentage
+    function getStarCount(percentage) {
+      if (percentage < 20) return 1;
+      if (percentage < 40) return 2;
+      if (percentage < 60) return 3;
+      if (percentage < 80) return 4;
+      return 5;
+    }
+
+    // Set stars content
+    document.querySelectorAll('.bar-fill').forEach(fill => {
+      const currentPercentage = parseInt(fill.style.getPropertyValue('--fill-percentage'));
+      const starCount = getStarCount(currentPercentage);
+      const stars = '★'.repeat(starCount);
+      fill.setAttribute('data-stars', stars);
+    });
+
+    const bars = document.querySelectorAll('.bar');
+    let currentOpenBar = null;
+
+    bars.forEach(bar => {
+      const popup = bar.querySelector('.popup');
+      let barCloseTimer = null;
+
+      bar.addEventListener('mouseenter', () => {
+        // If there's another bar open, close it immediately
+        if (currentOpenBar && currentOpenBar !== bar) {
+          // Clear any pending timers on the other bar
+          if (currentOpenBar._closeTimer) {
+            clearTimeout(currentOpenBar._closeTimer);
+            currentOpenBar._closeTimer = null;
+          }
+          
+          // Instantly close the other bar (no animation)
+          currentOpenBar.classList.remove('popup-open', 'space-open', 'space-closing');
+          currentOpenBar.style.transition = 'none';
+          currentOpenBar.style.marginBottom = '15px';
+          
+          // Force reflow to apply the instant change
+          currentOpenBar.offsetHeight;
+          
+          // Re-enable transitions
+          currentOpenBar.style.transition = '';
+        }
+        
+        // Cancel any pending close on this bar
+        if (barCloseTimer) {
+          clearTimeout(barCloseTimer);
+          barCloseTimer = null;
+        }
+        
+        // Remove closing class if it exists
+        bar.classList.remove('space-closing');
+        
+        // Open space and popup immediately
+        bar.classList.add('space-open', 'popup-open');
+        
+        // Set this as the current open bar
+        currentOpenBar = bar;
+      });
+
+      bar.addEventListener('mouseleave', () => {
+        // Start popup closing immediately
+        bar.classList.remove('popup-open');
+        
+        // Wait for popup to finish closing, THEN start bar spacing animation
+        barCloseTimer = setTimeout(() => {
+          bar.classList.remove('space-open');
+          bar.classList.add('space-closing');
+          barCloseTimer = null;
+          
+          // Clear current open bar if this was it
+          if (currentOpenBar === bar) {
+            currentOpenBar = null;
+          }
+        }, 280); // Wait for popup to close first
+        
+        // Store the timer on the bar element so we can cancel it
+        bar._closeTimer = barCloseTimer;
+      });
+    });
+  </script>
+</body>
+</html>
