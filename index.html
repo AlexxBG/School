@@ -11,6 +11,13 @@
       box-sizing: border-box;
     }
 
+    body {
+      background-image: url("images/haha.jpg");
+      min-height: 100vh;
+      color: white;
+      padding: 40px 20px;
+    }
+
     h1 {
       text-align: center;
       font-size: 48px;
@@ -19,18 +26,10 @@
       font-weight: bold;
       margin-bottom: 40px;
     }
-    
-    body {
-      background-image: url("images/abstract_network.svg");
-      min-height: 100vh;
-      color: white;
-      padding: 40px 20px;
-    }
 
     .content-wrapper {
       max-width: 800px;
       margin: 0 auto;
-       
     }
 
     .about-section {
@@ -71,6 +70,7 @@
       width: 100%;
       margin-bottom: 15px;
       cursor: pointer;
+      will-change: margin-bottom;
     }
 
     .bar.space-open {
@@ -132,6 +132,7 @@
       transition: max-height 0.25s ease-out, 
                   opacity 0.2s ease-out,
                   padding 0.25s ease-out;
+      will-change: max-height, opacity;
     }
 
     .bar.popup-open .popup {
@@ -186,6 +187,7 @@
       position: relative;
       width: 600px;
       height: 400px;
+      transform: translateZ(0);
     }
 
     .carousel-item {
@@ -203,6 +205,8 @@
       font-size: 24px;
       color: #333;
       font-weight: bold;
+      backface-visibility: hidden;
+      will-change: transform, opacity;
     }
 
     .carousel-item img {
@@ -262,11 +266,12 @@
       justify-content: center;
       cursor: pointer;
       z-index: 20;
-      transition: all 0.3s ease;
+      transition: transform 0.3s ease;
       font-size: 40px;
       color: white;
       user-select: none;
       font-weight: 100;
+      will-change: transform;
     }
 
     .carousel-arrow:hover {
@@ -280,6 +285,237 @@
 
     .carousel-arrow.right {
       right: 20px;
+    }
+
+    /* Contact Form Styles - Optimized */
+    :root {
+      --accent: gold;
+      --text: #ffffff;
+      --error: #ff5f6d;
+    }
+
+    .contact-section {
+      margin-top: 80px;
+      padding: 40px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text);
+    }
+
+    .contact-card {
+      width: 100%;
+      max-width: 800px;
+      padding: 40px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      position: relative;
+    }
+
+    .contact-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .contact-header h2 {
+      font-size: 36px;
+      margin-bottom: 15px;
+      color: white;
+    }
+
+    .contact-header p {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 18px;
+      line-height: 1.6;
+    }
+
+    .contact-form,
+    .success-state {
+      position: relative;
+      z-index: 1;
+      transition: opacity 350ms ease, transform 350ms ease;
+      will-change: opacity, transform;
+    }
+
+    .success-state {
+      display: none;
+      text-align: center;
+      padding: 2rem 1.5rem;
+    }
+
+    .success-state.active {
+      display: block;
+      animation: fadeUp 450ms ease forwards;
+    }
+
+    .success-ring {
+      width: 90px;
+      height: 90px;
+      margin: 0 auto 1rem;
+      border-radius: 50%;
+      border: 3px solid gold;
+      position: relative;
+      will-change: transform, opacity;
+    }
+
+    .success-state.active .success-ring {
+      animation: pulseRing 2.2s ease infinite;
+    }
+
+    .success-ring::after {
+      content: "✓";
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      font-size: 2rem;
+      color: gold;
+      text-shadow: 0 0 12px rgba(255, 215, 0, 0.8);
+    }
+
+    @keyframes pulseRing {
+      0% { transform: scale(0.95); opacity: 0.7; }
+      50% { transform: scale(1); opacity: 1; }
+      100% { transform: scale(0.95); opacity: 0.7; }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(15px) scale(0.98); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.2rem;
+      margin-bottom: 1.2rem;
+    }
+
+    @media (max-width: 720px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .floating-label {
+      position: relative;
+      display: block;
+    }
+
+    .floating-label.full {
+      margin-bottom: 1.2rem;
+    }
+
+    .floating-label input,
+    .floating-label textarea {
+      width: 100%;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+      padding: 1.2rem 1.1rem 0.6rem;
+      color: white;
+      font-size: 16px;
+      transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+      outline: none;
+      resize: none;
+      will-change: background, border-color;
+    }
+
+    .floating-label textarea {
+      min-height: 130px;
+    }
+
+    .floating-label span {
+      position: absolute;
+      left: 1.2rem;
+      top: 1.15rem;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 16px;
+      pointer-events: none;
+      transition: transform 0.3s ease, color 0.3s ease;
+      will-change: transform, color;
+    }
+
+    .floating-label input:focus,
+    .floating-label textarea:focus {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: gold;
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+    }
+
+    .floating-label input:focus + span,
+    .floating-label textarea:focus + span,
+    .floating-label input:not(:placeholder-shown) + span,
+    .floating-label textarea:not(:placeholder-shown) + span {
+      transform: translateY(-1.1rem) scale(0.87);
+      color: gold;
+    }
+
+    .error-text {
+      position: absolute;
+      left: 1.2rem;
+      bottom: 0.45rem;
+      font-size: 0.75rem;
+      color: var(--error);
+      opacity: 0;
+      transform: translateY(4px);
+      transition: opacity 180ms ease, transform 180ms ease;
+    }
+
+    .floating-label.invalid input,
+    .floating-label.invalid textarea {
+      border-color: var(--error);
+      box-shadow: 0 0 20px rgba(255, 95, 109, 0.3);
+    }
+
+    .floating-label.invalid .error-text {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes shake {
+      10%, 90% { transform: translateX(-2px); }
+      20%, 80% { transform: translateX(4px); }
+      30%, 50%, 70% { transform: translateX(-6px); }
+      40%, 60% { transform: translateX(6px); }
+    }
+
+    .floating-label.invalid {
+      animation: shake 380ms cubic-bezier(.36,.07,.19,.97) both;
+    }
+
+    .submit-btn {
+      border: none;
+      width: 100%;
+      margin-top: 0.5rem;
+      padding: 1rem 1.4rem;
+      border-radius: 8px;
+      background: rgb(255, 255, 255);
+      color: #000;
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      will-change: transform;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(255, 255, 255, 0.4);
+    }
+
+    .submit-btn:active {
+      transform: translateY(0);
+    }
+
+    @media (max-width: 600px) {
+      .success-ring {
+        width: 70px;
+        height: 70px;
+      }
+      .contact-card {
+        padding: 30px 20px;
+      }
     }
   </style>
 </head>
@@ -352,16 +588,24 @@
         <div class="carousel-arrow left" onclick="previousSlide()"><</div>
         <div class="carousel-images">
           <div class="carousel-item active">
-            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: white;">Project 1</div>
+            <div style="background-image: url(images/totalgd.png); background: cover;
+    background-repeat: no-repeat;
+    background-position: center; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: white;"></div>
           </div>
           <div class="carousel-item right">
-            <div style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: white;">Project 2</div>
+            <div style="background-image: url(images/KutiqPlakat-1.png); background-size: 101%;
+    background-repeat: no-repeat;
+    background-position: center;; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: white;"></div>
           </div>
           <div class="carousel-item hidden-right">
-            <div style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: white;">Project 3</div>
+            <div style="background-image: url(images/LogoGrece1.png); background-size: 97%;
+    background-repeat: no-repeat;
+    background-position: center; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: white;"></div>
           </div>
           <div class="carousel-item hidden-right">
-            <div style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: white;">Project 4</div>
+            <div style="background-image: url(images/glagolica\ logo.png); background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: white;"></div>
           </div>
           <div class="carousel-item hidden-left">
             <div style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: white;">Project 5</div>
@@ -370,10 +614,149 @@
         <div class="carousel-arrow right" onclick="nextSlide()">></div>
       </div>
     </div>
+
+    <section class="contact-section" id="contact">
+      <div class="contact-card">
+        <div class="contact-header">
+          <h2>Contact Me</h2>
+          <p>Have a project idea or just want to say hi? Drop a message below.</p>
+        </div>
+        <form class="contact-form" novalidate>
+          <div class="form-row">
+            <label class="floating-label">
+              <input type="text" name="name" autocomplete="name" required />
+              <span>Name</span>
+              <small class="error-text">Please enter your name</small>
+            </label>
+            <label class="floating-label">
+              <input type="email" name="email" autocomplete="email" required />
+              <span>Email</span>
+              <small class="error-text">Please enter a valid email</small>
+            </label>
+          </div>
+          <label class="floating-label full">
+            <textarea name="message" rows="3" required></textarea>
+            <span>Message</span>
+            <small class="error-text">Please write a message</small>
+          </label>
+          <button type="submit" class="submit-btn">Send Message</button>
+        </form>
+        <div class="success-state" aria-live="polite">
+          <div class="success-ring"></div>
+          <h3>Thank you! Your message has been received.</h3>
+          <p>I'll get back to you shortly.</p>
+        </div>
+      </div>
+    </section>
   </div>
 
   <script>
-    // Function to calculate stars based on percentage
+    (() => {
+      const form = document.querySelector('.contact-form');
+      const inputs = form.querySelectorAll('input, textarea');
+      const success = document.querySelector('.success-state');
+      let resetTimeout;
+
+      // Floating label placeholder fix
+      inputs.forEach(el => {
+        el.setAttribute('placeholder', ' ');
+      });
+
+      // Debounced textarea autosize for better performance
+      const autoSize = textarea => {
+        requestAnimationFrame(() => {
+          textarea.style.height = 'auto';
+          textarea.style.height = `${textarea.scrollHeight}px`;
+        });
+      };
+
+      // Debounce function
+      const debounce = (func, wait) => {
+        let timeout;
+        return function executedFunction(...args) {
+          const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+          };
+          clearTimeout(timeout);
+          timeout = setTimeout(later, wait);
+        };
+      };
+
+      inputs.forEach(el => {
+        if (el.tagName === 'TEXTAREA') {
+          autoSize(el);
+          const debouncedAutoSize = debounce(() => autoSize(el), 100);
+          el.addEventListener('input', debouncedAutoSize);
+        }
+      });
+
+      // Validation helpers
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      const showError = (label, message) => {
+        label.classList.add('invalid');
+        const small = label.querySelector('.error-text');
+        if (small) small.textContent = message;
+      };
+
+      const clearError = label => {
+        label.classList.remove('invalid');
+      };
+
+      inputs.forEach(input => {
+        input.addEventListener('input', () => {
+          const label = input.closest('.floating-label');
+          clearError(label);
+        });
+      });
+
+      form.addEventListener('submit', e => {
+        e.preventDefault();
+        let valid = true;
+
+        inputs.forEach(input => {
+          const label = input.closest('.floating-label');
+          clearError(label);
+
+          if (!input.value.trim()) {
+            showError(label, `Please enter your ${input.name}`);
+            valid = false;
+          } else if (input.type === 'email' && !emailPattern.test(input.value.trim())) {
+            showError(label, 'Please enter a valid email');
+            valid = false;
+          }
+        });
+
+        if (!valid) return;
+
+        form.style.opacity = '0';
+        form.style.transform = 'translateY(10px)';
+        setTimeout(() => {
+          form.style.display = 'none';
+          success.classList.add('active');
+        }, 220);
+
+        clearTimeout(resetTimeout);
+        resetTimeout = setTimeout(() => {
+          form.reset();
+          inputs.forEach(input => {
+            const label = input.closest('.floating-label');
+            clearError(label);
+            if (input.tagName === 'TEXTAREA') autoSize(input);
+          });
+          success.classList.remove('active');
+          setTimeout(() => {
+            form.style.display = 'block';
+            requestAnimationFrame(() => {
+              form.style.opacity = '1';
+              form.style.transform = 'translateY(0)';
+            });
+          }, 120);
+        }, 5000);
+      });
+    })();
+
     function getStarCount(percentage) {
       if (percentage < 20) return 1;
       if (percentage < 40) return 2;
@@ -406,16 +789,18 @@
             currentOpenBar._closeTimer = null;
           }
           
-          // Instantly close the other bar (no animation)
-          currentOpenBar.classList.remove('popup-open', 'space-open', 'space-closing');
-          currentOpenBar.style.transition = 'none';
-          currentOpenBar.style.marginBottom = '15px';
-          
-          // Force reflow to apply the instant change
-          currentOpenBar.offsetHeight;
-          
-          // Re-enable transitions
-          currentOpenBar.style.transition = '';
+          // Use requestAnimationFrame for smoother transitions
+          requestAnimationFrame(() => {
+            currentOpenBar.classList.remove('popup-open', 'space-open', 'space-closing');
+            currentOpenBar.style.transition = 'none';
+            currentOpenBar.style.marginBottom = '15px';
+            
+            // Force reflow
+            currentOpenBar.offsetHeight;
+            
+            // Re-enable transitions
+            currentOpenBar.style.transition = '';
+          });
         }
         
         // Cancel any pending close on this bar
@@ -428,7 +813,9 @@
         bar.classList.remove('space-closing');
         
         // Open space and popup immediately
-        bar.classList.add('space-open', 'popup-open');
+        requestAnimationFrame(() => {
+          bar.classList.add('space-open', 'popup-open');
+        });
         
         // Set this as the current open bar
         currentOpenBar = bar;
@@ -440,50 +827,66 @@
         
         // Wait for popup to finish closing, THEN start bar spacing animation
         barCloseTimer = setTimeout(() => {
-          bar.classList.remove('space-open');
-          bar.classList.add('space-closing');
+          requestAnimationFrame(() => {
+            bar.classList.remove('space-open');
+            bar.classList.add('space-closing');
+          });
           barCloseTimer = null;
           
           // Clear current open bar if this was it
           if (currentOpenBar === bar) {
             currentOpenBar = null;
           }
-        }, 280); // Wait for popup to close first
+        }, 280);
         
         // Store the timer on the bar element so we can cancel it
         bar._closeTimer = barCloseTimer;
       });
     });
 
-    // Carousel functionality
+    // Carousel functionality with optimized transitions
     let currentIndex = 0;
     const carouselItems = document.querySelectorAll('.carousel-item');
     const totalItems = carouselItems.length;
+    let isTransitioning = false;
 
     function updateCarousel() {
-      carouselItems.forEach((item, index) => {
-        item.classList.remove('active', 'left', 'right', 'hidden-left', 'hidden-right');
-        
-        if (index === currentIndex) {
-          item.classList.add('active');
-        } else if (index === (currentIndex - 1 + totalItems) % totalItems) {
-          item.classList.add('left');
-        } else if (index === (currentIndex + 1) % totalItems) {
-          item.classList.add('right');
-        } else if (index === (currentIndex - 2 + totalItems) % totalItems) {
-          item.classList.add('hidden-left');
-        } else {
-          item.classList.add('hidden-right');
-        }
+      if (isTransitioning) return;
+      
+      isTransitioning = true;
+      
+      requestAnimationFrame(() => {
+        carouselItems.forEach((item, index) => {
+          item.classList.remove('active', 'left', 'right', 'hidden-left', 'hidden-right');
+          
+          if (index === currentIndex) {
+            item.classList.add('active');
+          } else if (index === (currentIndex - 1 + totalItems) % totalItems) {
+            item.classList.add('left');
+          } else if (index === (currentIndex + 1) % totalItems) {
+            item.classList.add('right');
+          } else if (index === (currentIndex - 2 + totalItems) % totalItems) {
+            item.classList.add('hidden-left');
+          } else {
+            item.classList.add('hidden-right');
+          }
+        });
       });
+
+      // Reset transition flag after animation completes
+      setTimeout(() => {
+        isTransitioning = false;
+      }, 600);
     }
 
     function nextSlide() {
+      if (isTransitioning) return;
       currentIndex = (currentIndex + 1) % totalItems;
       updateCarousel();
     }
 
     function previousSlide() {
+      if (isTransitioning) return;
       currentIndex = (currentIndex - 1 + totalItems) % totalItems;
       updateCarousel();
     }
